@@ -4,14 +4,16 @@ const jwt = require("jsonwebtoken")
 const express = require('express');
 const app = express();
 require("dotenv").config()
+
+
 const register = async (req, res) => {
     const { first_name, last_name, address, city, region, phone_number, email, password,
         image_profile, payment_id, role_id, store_id } = req.body
     console.log("SALT", process.env.SALT);
     const hashedPassword = await bcrypt.hash(password, Number(process.env.SALT));
     console.log(hashedPassword);
-    const data = [first_name, last_name,role_id, address, city, region, phone_number, email, hashedPassword,
-        image_profile,payment_id ,store_id]
+    const data = [first_name, last_name, role_id, address, city, region, phone_number, email, hashedPassword,
+        image_profile, payment_id, store_id]
     const query = `INSERT INTO users (first_name,last_name,role_id,address,city,region,phone_number,email,password,
         image_profile,payment_id,store_id)
     VALUES (?,?,?,?,?,?,?,?,?,?,?,?) `
@@ -23,6 +25,7 @@ const register = async (req, res) => {
         res.json(results)
     })
 }
+
 const login = (req, res) => {
     const query = `SELECT * ,roles.type FROM roles INNER JOIN users ON 
     users.role_id=roles.role_id WHERE email=? `;
@@ -30,7 +33,7 @@ const login = (req, res) => {
     const data = [email, password];
     connection.query(query, data, async (err, result) => {
         if (err) throw err;
-        console.log("result :", result[0]);  
+        console.log("result :", result[0]);
         if (result.length) {
             if (await bcrypt.compare(password, result[0].password)) {
                 const {
@@ -71,6 +74,7 @@ const login = (req, res) => {
         }
     });
 };
+
 const getAllUsers = (req, res) => {
     const query = `SELECT * FROM users WHERE is_deleted=?`
     const data = [0]
@@ -82,4 +86,5 @@ const getAllUsers = (req, res) => {
         res.json(results)
     })
 }
-module.exports = { register, getAllUsers,login }
+
+module.exports = { register, getAllUsers, login }
