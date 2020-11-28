@@ -2,9 +2,9 @@ const connection = require("../db")
 
 const addProduct = (req, res) => {
     const { store_id, product_name, product_descripition, quantity_per_unit, unit_price, available_product, picture } = req.body
-    const data = [product_name, product_descripition, quantity_per_unit, unit_price, available_product, picture]
-    const query = `INSERT INTO products (product_name,product_descripition,quantity_per_unit,unit_price,available_product,picture)
-VALUES (?,?,?,?,?,?) `
+    const data = [store_id,product_name, product_descripition, quantity_per_unit, unit_price, available_product, picture]
+    const query = `INSERT INTO products (store_id,product_name,product_descripition,quantity_per_unit,unit_price,available_product,picture)
+VALUES (?,?,?,?,?,?,?) `
     connection.query(query, data, (err, results) => {
         if (err) {
             console.log(err);
@@ -27,8 +27,9 @@ const updateProduct = (req, res) => {
     })
 }
 const getproducts = (req, res) => {
-    const query = `SELECT * from products`
-    connection.query(query, (err, results) => {
+    const query = `SELECT * from products WHERE store_id=?`
+    const data =[req.body.store_id]
+    connection.query(query,data, (err, results) => {
         if (err) {
             console.log(err);
         }
@@ -50,10 +51,10 @@ const deleteProduct = (req, res) => {
 
 //******************** */
 const addStore = (req, res) => {
-    const { store_name, store_category, store_pic } = req.body
-    const data = [store_name, store_category, store_pic]
-    const query = `INSERT INTO store (store_name,store_category,store_pic)
-    VALUES (?,?,?) `
+    const { store_name, store_category, store_pic,user_id } = req.body
+    const data = [store_name, store_category, store_pic,user_id]
+    const query = `INSERT INTO store (store_name,store_category,store_pic,user_id)
+    VALUES (?,?,?,?) `
     connection.query(query, data, (err, results) => {
         if (err) {
             console.log(err);
@@ -76,8 +77,9 @@ const updateStore = (req, res) => {
     })
 }
 const getStores = (req, res) => {
-    const query = `SELECT * from store `
-    connection.query(query, (err, results) => {
+    const query = `SELECT * from store WHERE user_id=?`
+    const data = [req.body.user_id]
+    connection.query(query,data, (err, results) => {
         if (err) {
             console.log(err);
         }
@@ -96,12 +98,12 @@ const deleteStore = (req, res) => {
         res.json(results)
     })
 }
-
+//************************************************************* */
 const createItem = (req, res) => {
-    const { product_id, total_price } = req.body
-    const data = [product_id, total_price]
-    const query = `INSERT INTO items (product_id,total_price)
-    VALUES (?,?) `
+    const {orders_id, product_id, total_price } = req.body
+    const data = [orders_id,product_id, total_price]
+    const query = `INSERT INTO items (orders_id,product_id,total_price)
+    VALUES (?,?,?) `
     connection.query(query, data, (err, results) => {
         if (err) {
             console.log(err);
@@ -111,8 +113,9 @@ const createItem = (req, res) => {
     })
 }
 const getItems = (req, res) => {
-    const query = `SELECT * from items `
-    connection.query(query, (err, results) => {
+    const query = `SELECT * from items WHERE orders_id=?`
+    const data = [req.body.orders_id]
+    connection.query(query,data, (err, results) => {
         if (err) {
             console.log(err);
         }
