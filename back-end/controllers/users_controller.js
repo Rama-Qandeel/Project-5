@@ -7,7 +7,7 @@ const register = async (req, res) => {
     const { first_name, last_name, address, city, region, phone_number, email, password,
         image_profile, payment_id, role_id, store_id } = req.body
     console.log("SALT", process.env.SALT);
-    const hashedPassword = await bcrypt.hash(password, process.env.SALT, (err, res) => {
+    const hashedPassword = await bcrypt.hash(password, Number(process.env.SALT), (err, res) => {
         if (err) throw err
         console.log(res);
     })
