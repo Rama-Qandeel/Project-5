@@ -96,4 +96,75 @@ const addStore= (req,res)=>{
                 res.json(results)
             })
             }        
-module.exports={addProduct,getproducts,deleteProduct,updateProduct,addStore,updateStore,getStores,deleteStore}
+
+const createItem= (req,res)=>{
+    const {product_id,total_price}=req.body
+    const data = [product_id,total_price]
+    const query = `INSERT INTO items (product_id,total_price)
+    VALUES (?,?) `
+    connection.query(query,data,(err,results)=>{
+        if (err) {
+            console.log(err);
+        }  
+        console.log(results);
+        res.json(results)
+    })
+    }
+const getItems= (req,res)=>{
+        const query = `SELECT * from items `
+        connection.query(query,(err,results)=>{
+            if (err) {
+                console.log(err);
+            }  
+            console.log(results);
+            res.json(results)
+        })
+        }    
+const deleteItem= (req,res)=>{
+            const query = `DELETE FROM items WHERE items_id=?`
+            const data = [req.body.item_id]
+            connection.query(query,data,(err,results)=>{
+                if (err) {
+                    console.log(err);
+                }  
+                console.log(results);
+                res.json(results)
+            })
+            }   
+const createOrder= (req,res)=>{
+    const {user_id,delivary_user_id,store_id,item_id}=req.body
+    const data = [user_id,delivary_user_id,store_id,item_id]
+    const query = `INSERT INTO orders (user_id,delivary_user_id,store_id,item_id)
+    VALUES (?,?,?,?) `
+    connection.query(query,data,(err,results)=>{
+        if (err) {
+            console.log(err);
+        }  
+        console.log(results);
+        res.json(results)
+    })
+    }              
+    const getOrders= (req,res)=>{
+        const query = `SELECT * from orders WHERE user_id=?`
+        const data = [req.body.user_id]
+        connection.query(query,data,(err,results)=>{
+            if (err) {
+                console.log(err);
+            }  
+            console.log(results);
+            res.json(results)
+        })
+        } 
+const deleteOrder= (req,res)=>{
+            const query = `DELETE FROM orders WHERE order_id=?`
+            const data = [req.body.order_id]
+            connection.query(query,data,(err,results)=>{
+                if (err) {
+                    console.log(err);
+                }  
+                console.log(results);
+                res.json(results)
+            })
+            } 
+module.exports={addProduct,getproducts,deleteProduct,updateProduct,addStore,updateStore,getStores,deleteStore,
+    createItem,deleteItem,createOrder,getItems,getOrders,deleteOrder}

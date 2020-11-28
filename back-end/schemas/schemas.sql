@@ -44,7 +44,28 @@ PRIMARY key (product_id),
 FOREIGN KEY (store_id) REFERENCES store(store_id),
 FOREIGN KEY (category_id) REFERENCES productCategory(category_id)
 );
+-- *********************************orders
 
+CREATE table items (
+item_id int auto_increment NOT NUll,
+product_id int,
+total_price int,
+is_deleted BIT NOT NULL DEFAULT 0,
+PRIMARY KEY (item_id),
+FOREIGN KEY (product_id) REFERENCES products (product_id)
+);
+
+
+CREATE table orders(
+orders_id int auto_increment NOT NULL,
+user_id int,
+delivary_user_id int ,
+store_id int,
+item_id int ,
+is_deleted BIT NOT NULL DEFAULT 0,
+PRIMARY KEY (orders_id),
+FOREIGN KEY (item_id) REFERENCES items (item_id)
+);
 -- *********************************
 
 
