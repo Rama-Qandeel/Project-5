@@ -66,7 +66,42 @@ is_deleted BIT NOT NULL DEFAULT 0,
 PRIMARY KEY (orders_id),
 FOREIGN KEY (item_id) REFERENCES items (item_id)
 );
--- *********************************
+-- *********************************users
+CREATE TABLE roles (
+role_id int NOT NULL,
+type varchar(55),
+ PRIMARY KEY (role_id)
+ );
+CREATE table payment (
+payment_id int auto_increment NOT NULL,
+payment_type varchar(255),
+credit_card varchar(255),
+credit_card_type varchar(255),
+is_deleted tinyint default 0,
+PRIMARY KEY (payment_id)
+);
+CREATE TABLE users (
+user_id int auto_increment NOT NULL,
+first_name varchar(25),
+last_name varchar(25),
+birhday date,
+address varchar(255),
+city varchar(255),
+region varchar(255),
+phone_number varchar(255),
+email varchar(255),
+password varchar(255),
+image_profile varchar(255),
+payment_id int,
+role_id int ,
+store_id int ,
+is_deleted TINYINT DEFAULT 0,
+PRIMARY KEY (user_id),
+FOREIGN KEY (payment_id) REFERENCES payment (payment_id),
+FOREIGN KEY (store_id) REFERENCES store (store_id),
+FOREIGN KEY (role_id) REFERENCES roles (role_id)
+ );
+ --***************************************************
 
 
 CREATE TABLE users (
