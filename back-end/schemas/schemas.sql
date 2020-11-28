@@ -3,55 +3,47 @@ USE db_name;
 
 -- create database project_5;-- 
 -- use project_5 
-CREATE table productCategory(
-categoryId int  NOT NULL ,
-categoryName varchar(55),
-picture varchar(255) ,
-PRIMARY key (categoryId)
-);
--- drop table productCategory;
 
-CREATE table products(
-productId int AUTO_INCREMENT NOT NULL ,
-categoryId int ,
-storeId int ,
-productName varchar(25),
-productDescripition varchar(255),
-quantityPerUnit varchar(100),
-unitPrice int,
-availableProduct Boolean ,
-discountAvailable varchar(20),
-picture varchar(255),
-is_deleted  BIT NOT NULL DEFAULT 0,
-PRIMARY key (productId),
-FOREIGN KEY (storeId) REFERENCES store(storeId),
-FOREIGN KEY (categoryId) REFERENCES productCategory(categoryId)
-);
 
-CREATE table storeCategory (
-storeCategoryId int AUTO_INCREMENT NOT NULL,
+--store
+CREATE table store_category (
+store_categoryId int AUTO_INCREMENT NOT NULL,
 categoryName varchar(55),
-PRIMARY KEY (storeCategoryId)
+PRIMARY KEY (store_categoryId)
 );
 
 CREATE table store (
-        storeId int AUTO_INCREMENT NOT NULL,
-        userId int,
-        storeCategory varchar(55),
-        storeName varchar(55),
-        storePic varchar(255),
+        store_id int AUTO_INCREMENT NOT NULL,
+        user_id int,
+        store_category varchar(55),
+        store_name varchar(55),
+        store_pic varchar(255),
         is_deleted BIT NOT NULL DEFAULT 0,
-        PRIMARY KEY (storeId)
+        PRIMARY KEY (store_id)
         );
-
-
-
-
-
-
-
-
-
+--product 
+CREATE table productCategory(
+category_id int  NOT NULL ,
+category_name varchar(55),
+picture varchar(255) ,
+PRIMARY key (categoryId)
+);
+CREATE table products(
+product_id int AUTO_INCREMENT NOT NULL ,
+category_id int ,
+store_id int ,
+product_name varchar(255),
+product_descripition varchar(255),
+quantity_per_unit varchar(100),
+unit_price int,
+available_product Boolean ,
+discount_available varchar(20),
+picture varchar(255),
+is_deleted  BIT NOT NULL DEFAULT 0,
+PRIMARY key (product_id),
+FOREIGN KEY (store_id) REFERENCES store(store_id),
+FOREIGN KEY (category_id) REFERENCES productCategory(category_id)
+);
 
 -- *********************************
 

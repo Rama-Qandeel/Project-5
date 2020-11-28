@@ -1,11 +1,11 @@
 const connection = require("../db") 
 
 const addProduct= (req,res)=>{
-const {storeId,productName,productDescripition,quantityPerUnit,unitPrice,availableProduct,picture}=req.body
-const data = [productName,productDescripition,quantityPerUnit,unitPrice,availableProduct,picture]
-const quary = `insert into products (productName,productDescripition,quantityPerUnit,unitPrice,availableProduct,picture)
+const {store_id,product_name,product_descripition,quantity_per_unit,unit_price,available_product,picture}=req.body
+const data = [product_name,product_descripition,quantity_per_unit,unit_price,available_product,picture]
+const query = `INSERT INTO products (product_name,product_descripition,quantity_per_unit,unit_price,available_product,picture)
 VALUES (?,?,?,?,?,?) `
-connection.query(quary,data,(err,results)=>{
+connection.query(query,data,(err,results)=>{
     if (err) {
         console.log(err);
     }  
@@ -14,11 +14,11 @@ connection.query(quary,data,(err,results)=>{
 })
 }
 const updateProduct= (req,res)=>{
-    const {storeId,productName,productDescripition,quantityPerUnit,unitPrice,availableProduct,picture,productId}=req.body
-    const data = [productName,productDescripition,quantityPerUnit,unitPrice,availableProduct,picture,productId]
-    const quary = `UPDATE products SET productName=?,productDescripition=?,quantityPerUnit=?,
-        unitPrice=?,availableProduct=?,picture=? WHERE productId=${productId} `
-    connection.query(quary,data,(err,results)=>{
+    const {store_id,product_name,product_descripition,quantity_per_unit,unit_price,available_product,picture,product_id}=req.body
+    const data = [product_name,product_descripition,quantity_per_unit,unit_price,available_product,picture,product_id]
+    const query = `UPDATE products SET product_name=?,product_descripition=?,quantity_per_unit=?,
+        unit_price=?,available_product=?,picture=? WHERE product_id=${product_id} `
+    connection.query(query,data,(err,results)=>{
         if (err) {
             console.log(err);
         }  
@@ -27,8 +27,8 @@ const updateProduct= (req,res)=>{
     })
     }
 const getproducts= (req,res)=>{
-    const quary = `SELECT * from products`
-    connection.query(quary,(err,results)=>{
+    const query = `SELECT * from products`
+    connection.query(query,(err,results)=>{
         if (err) {
             console.log(err);
         }  
@@ -37,9 +37,9 @@ const getproducts= (req,res)=>{
     })
     }
     const deleteProduct= (req,res)=>{
-        const quary = `delete from products WHERE productId=?`
-        const data = [req.body.productId]
-        connection.query(quary,data,(err,results)=>{
+        const query = `DELETE FROM products WHERE product_id=?`
+        const data = [req.body.product_id]
+        connection.query(query,data,(err,results)=>{
             if (err) {
                 console.log(err);
             }  
@@ -50,11 +50,11 @@ const getproducts= (req,res)=>{
 
 //******************** */
 const addStore= (req,res)=>{
-    const {storeName,storeCategory,storePic}=req.body
-    const data = [storeName,storeCategory,storePic]
-    const quary = `insert into store (storeName,storeCategory,storePic)
+    const {store_name,store_category,store_pic}=req.body
+    const data = [store_name,store_category,store_pic]
+    const query = `INSERT INTO store (store_name,store_category,store_pic)
     VALUES (?,?,?) `
-    connection.query(quary,data,(err,results)=>{
+    connection.query(query,data,(err,results)=>{
         if (err) {
             console.log(err);
         }  
@@ -64,10 +64,10 @@ const addStore= (req,res)=>{
     }
     
     const updateStore= (req,res)=>{
-        const {storeName,storeCategory,storePic,storeId}=req.body
-        const data = [storeName,storeCategory,storePic]
-        const quary = `UPDATE store SET storeName=?,storeCategory=?,storePic=? WHERE storeId=${storeId} `
-        connection.query(quary,data,(err,results)=>{
+        const {store_name,store_category,store_pic,store_id}=req.body
+        const data = [store_name,store_category,store_pic]
+        const query = `UPDATE store SET store_name=?,store_category=?,store_pic=? WHERE store_id=${store_id} `
+        connection.query(query,data,(err,results)=>{
             if (err) {
                 console.log(err);
             }  
@@ -76,8 +76,8 @@ const addStore= (req,res)=>{
         })
         }
     const getStores= (req,res)=>{
-        const quary = `SELECT * from store `
-        connection.query(quary,(err,results)=>{
+        const query = `SELECT * from store `
+        connection.query(query,(err,results)=>{
             if (err) {
                 console.log(err);
             }  
@@ -86,9 +86,9 @@ const addStore= (req,res)=>{
         })
         }
         const deleteStore= (req,res)=>{
-            const quary = `delete from store WHERE storeId=?`
-            const data = [req.body.storeId]
-            connection.query(quary,data,(err,results)=>{
+            const query = `DELETE FROM store WHERE store_id=?`
+            const data = [req.body.store_id]
+            connection.query(query,data,(err,results)=>{
                 if (err) {
                     console.log(err);
                 }  
