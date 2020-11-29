@@ -4,27 +4,30 @@ const jwt = require("jsonwebtoken")
 const express = require('express');
 const app = express();
 require("dotenv").config()
-
-
+ 
+    
 const register = async (req, res) => {
-    const { first_name, last_name, address, city, region, phone_number, email, password,
+    const {first_name,last_name, address, city, region, phone_number,
+         email, password,
         image_profile, payment_id, role_id, store_id } = req.body
     console.log("SALT", process.env.SALT);
     const hashedPassword = await bcrypt.hash(password, Number(process.env.SALT));
     console.log(hashedPassword);
     const data = [first_name, last_name, role_id, address, city, region, phone_number, email, hashedPassword,
         image_profile, payment_id, store_id]
-    const query = `INSERT INTO users (first_name,last_name,role_id,address,city,region,phone_number,email,password,
-        image_profile,payment_id,store_id)
+        const query = `INSERT INTO users (first_name,last_name,role_id,address,city,region,phone_number,email,password,
+        image_profile,payment_id,store_id) 
     VALUES (?,?,?,?,?,?,?,?,?,?,?,?) `
+
     connection.query(query, data, (err, results) => {
         if (err) {
+            
             console.log(err);
-        }
-        console.log(results);
-        res.json(results)
+        } 
+        console.log(results); 
+        res.json(results) 
     })
-}
+} 
 
 const login = (req, res) => {
     const query = `SELECT * ,roles.type FROM roles INNER JOIN users ON 

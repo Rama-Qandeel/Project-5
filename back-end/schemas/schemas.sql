@@ -25,7 +25,7 @@ CREATE table productCategory(
 category_id int  NOT NULL ,
 category_name varchar(55),
 picture varchar(255) ,
-PRIMARY key (categoryId)
+PRIMARY key (category_id)
 );
 
 CREATE table products(
