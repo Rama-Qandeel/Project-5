@@ -3,7 +3,7 @@ import { BrowserRouter as Router , Route, Link } from "react-router-dom";
 import './App.css';
 import Register from './components/Register';
 import Login from "./components/Login";
-
+import Home from "./components/Home"
 // Class component
 export default class App extends Component {
   constructor(props) {
@@ -16,6 +16,8 @@ export default class App extends Component {
      <div>
      <Route exact path="/login" render={props => <Login {...props} />} />
       <Route exact path="/register" render={props => <Register {...props} />} />
+      <Route exact path="/home" render={props => <Home {...props} />} />
+
       </div>
       </Router>
     );
