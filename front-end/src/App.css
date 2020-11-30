@@ -9,13 +9,12 @@
   margin-bottom: 10px;
   color: black !important;
 }
-.navbar-nav{
-display: flex;
-
+.navbar-nav {
+  display: flex;
 }
 
-.nav-item{
-text-decoration: none;
-list-style: none;
-margin-left:10px ;
+.nav-item {
+  text-decoration: none;
+  list-style: none;
+  margin-left: 10px;
 }
