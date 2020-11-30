@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { BrowserRouter as Router , Route, Link } from "react-router-dom"; 
+
 import axios from "axios";
 const Register = (props) => {
   const [email, setEmail] = useState("");
@@ -170,6 +172,9 @@ const Register = (props) => {
       <div>
         <button onClick={handleSubmit}>Register</button>
       </div>
+      <Link to="/login">
+      <div><p>Already member?</p></div>
+      </Link>
     </div>
   );
 };

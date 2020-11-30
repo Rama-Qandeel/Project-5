@@ -4,7 +4,8 @@ import './App.css';
 import Register from './components/Register';
 import Login from "./components/Login";
 import Home from "./components/Home"
-// Class component
+import Header from "./components/Header"
+
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -13,12 +14,12 @@ export default class App extends Component {
   render() {
     return (
      <Router>
-     <div>
+     <Header/>
      <Route exact path="/login" render={props => <Login {...props} />} />
       <Route exact path="/register" render={props => <Register {...props} />} />
       <Route exact path="/home" render={props => <Home {...props} />} />
 
-      </div>
+     
       </Router>
     );
   }

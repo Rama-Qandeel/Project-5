@@ -1,0 +1,21 @@
+.navheader {
+  margin-top: 10px;
+  color: black !important;
+  background-color: #b3beca !important;
+}
+
+.PageHeading {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: black !important;
+}
+.navbar-nav{
+display: flex;
+
+}
+
+.nav-item{
+text-decoration: none;
+list-style: none;
+margin-left:10px ;
+}
