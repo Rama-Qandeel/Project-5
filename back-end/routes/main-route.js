@@ -1,7 +1,7 @@
 const express = require('express');
 const mainRouter = express.Router();
 const { addProduct, getproducts, deleteProduct, updateProduct, addStore, updateStore, getStores, deleteStore,
-  createItem, deleteItem, createOrder, getItems, getOrders } = require("../controllers/main-controller")
+  createItem, deleteItem, createOrder, getItems, getOrders,getAllStores } = require("../controllers/main-controller")
 const { register, getAllUsers, login } = require("../controllers/users_controller")
 
 mainRouter.post('/product', addProduct);
@@ -12,6 +12,8 @@ mainRouter.put('/product', updateProduct);
 mainRouter.post('/store', addStore);
 mainRouter.put('/store', updateStore);
 mainRouter.get('/store', getStores);
+mainRouter.get('/allstore', getAllStores);
+
 mainRouter.delete('/store', deleteStore);
 
 mainRouter.post('/order', createOrder);
