@@ -42,7 +42,7 @@ const [specificStores,setSpecificStores]=useState([])
     <Link
       className="link"
       to={{
-        pathname: "/info",
+        pathname: "/infostore",
         state: store,
       }}
       style={{ textDecoration: "none" }}

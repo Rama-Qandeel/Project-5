@@ -6,6 +6,7 @@ import Login from "./components/Login";
 import Home from "./components/Home"
 import Header from "./components/Header"
 import Store from "./components/Store"
+import InfoStore from './InfoStore';
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -18,8 +19,9 @@ export default class App extends Component {
      <Route exact path="/login" render={props => <Login {...props} />} />
       <Route exact path="/register" render={props => <Register {...props} />} />
       <Route exact path="/home" render={props => <Home {...props} />} />
-      <Route exact path="/info" render={props => <Store {...props} />} />
-      </Router>
+      <Route exact path="/infostore" render={props => <InfoStore {...props} />} />
+
+     </Router>
     );
   }
 }
