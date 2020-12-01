@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router , Route, Link } from "react-router-dom"; 
-
 import axios from "axios";
+
 const Register = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -77,7 +77,8 @@ const Register = (props) => {
   };
 
   return (
-    <div>
+    <div className="register-container">
+      <h1>Register</h1>
       <div>
         <input
           type="email"
