@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-
 import axios from "axios";
+
 const Register = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -100,7 +100,6 @@ const Register = (props) => {
         />
       </div>
       <div>
-        {" "}
         <input
           type="text"
           name="firstName"
@@ -121,9 +120,7 @@ const Register = (props) => {
           required
         />
       </div>
-
       <div>
-        {" "}
         <label htmlFor="address"> Select a country</label>
         <select name="address" id="address" onClick={handleChange}>
           <option value="Jordan">Jordan</option>
@@ -140,7 +137,6 @@ const Register = (props) => {
         />
       </div>
       <div>
-        {" "}
         <input
           type="text"
           name="region"
@@ -151,7 +147,6 @@ const Register = (props) => {
         />
       </div>
       <div>
-        {" "}
         <input
           type="text"
           name="phoneNumber"
