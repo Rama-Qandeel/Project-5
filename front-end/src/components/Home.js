@@ -56,6 +56,9 @@ const [specificStores,setSpecificStores]=useState([])
    return (
             <div>
              <div className="store-category"> 
+             <button  onClick={getAllStores}>
+              All
+            </button>
               <button name="Groceries" onClick={getSpecificStores}>
               Groceries
             </button>
