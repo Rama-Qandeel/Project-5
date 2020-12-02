@@ -1,10 +1,10 @@
 const connection = require("../db")
 
 const addProduct = (req, res) => {
-    const { store_id, product_name, product_descripition, quantity_per_unit, unit_price, available_product, picture } = req.body
-    const data = [store_id, product_name, product_descripition, quantity_per_unit, unit_price, available_product, picture]
-    const query = `INSERT INTO products (store_id,product_name,product_descripition,quantity_per_unit,unit_price,available_product,picture)
-VALUES (?,?,?,?,?,?,?) `
+    const { store_id,item_id, product_name, product_descripition, quantity_per_unit, unit_price, available_product, picture } = req.body
+    const data = [store_id, item_id,product_name, product_descripition, quantity_per_unit, unit_price, available_product, picture]
+    const query = `INSERT INTO products (store_id,item_id,product_name,product_descripition,quantity_per_unit,unit_price,available_product,picture)
+VALUES (?,?,?,?,?,?,?,?) `
     connection.query(query, data, (err, results) => {
         if (err) {
             console.log(err);
@@ -39,7 +39,17 @@ const getproducts = (req, res) => {
         res.json(results)
     })
 }
-
+const getproductsByItem = (req, res) => {
+    const query = `SELECT * from products WHERE item_id=?`
+    const data = [req.body.item_id]
+    connection.query(query, data, (err, results) => {
+        if (err) {
+            console.log(err);
+        }
+        console.log(results);
+        res.json(results)
+    })
+}
 const deleteProduct = (req, res) => {
     const query = `DELETE FROM products WHERE product_id=?`
     const data = [req.body.product_id]
@@ -179,14 +189,19 @@ const deleteOrder = (req, res) => {
         res.json(results)
     })
 }
+// orders.delivary_user_id, orders.user_id, orders.orders_id,users.first_name,
+    // users.last_name,orders.store_id ,orders.item_id //    INNER JOIN store ON orders.store_id=store.store_id 
 
 const ordersAndUsers = (req, res) => {
-    const query = `SELECT orders.delivary_user_id, orders.user_id, orders.orders_id,users.first_name,
-    users.last_name,orders.store_id ,orders.item_id
-    FROM orders 
-    INNER JOIN users ON orders.delivary_user_id=users.user_id;`
+    const query =
+        `SELECT * FROM orders 
+    INNER JOIN users ON orders.delivary_user_id=users.user_id 
+    INNER JOIN items ON orders.item_id=items.item_id 
+    INNER JOIN products ON items.item_id=products.item_id 
+    
+    WHERE orders.user_id =?`
     const data = [req.params.user_id]
-    connection.query(query, (err, results) => {
+    connection.query(query, data, (err, results) => {
         if (err) {
             console.log(err);
         }
@@ -197,5 +212,5 @@ const ordersAndUsers = (req, res) => {
 
 module.exports = {
     addProduct, getproducts, deleteProduct, updateProduct, addStore, updateStore, getStores, deleteStore,
-    createItem, deleteItem, createOrder, getItems, getOrders, deleteOrder, ordersAndUsers,
+    createItem, deleteItem, createOrder, getItems, getOrders, deleteOrder, ordersAndUsers,getproductsByItem
 }

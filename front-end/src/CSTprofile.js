@@ -46,9 +46,9 @@ const CSTprofile = (props) => {
             });
     };
 
-    const getOrdersInfo = async () => {
+    const getOrdersInfo = async (infoArgumnt) => {
         axios
-            .get(`http://localhost:5000/usersOrders`)
+            .get(`http://localhost:5000/usersOrders/${infoArgumnt}`)
             .then(async (response) => {
                 setOrders(response.data)
             })
@@ -109,7 +109,7 @@ const CSTprofile = (props) => {
             <div className="app">
                 <h1>{Farstname} profile</h1>
 
-                <button onClick={() => { getOrdersInfo(); getUser(userId); getStores(userId) }} > get user </button>
+                <button onClick={() => { getOrdersInfo(userId); getUser(userId); getStores(userId) }} > get user </button>
                 <input onChange={(e) => { setUserId(e.target.value) }} placeholder="user id" />
                 <div>
                     <img src={userPic} alt="profile pic" className="pPic"></img>
