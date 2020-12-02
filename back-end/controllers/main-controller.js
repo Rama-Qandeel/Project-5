@@ -82,7 +82,7 @@ const updateStore = (req, res) => {
 
 const getStores = (req, res) => {
     const query = `SELECT * from store WHERE user_id=?`
-    const data = [req.body.user_id]
+    const data = [req.params.user_id]
     connection.query(query, data, (err, results) => {
         if (err) {
             console.log(err);
@@ -158,7 +158,7 @@ const createOrder = (req, res) => {
 
 const getOrders = (req, res) => {
     const query = `SELECT * from orders WHERE user_id=?`
-    const data = [req.body.user_id]
+    const data = [req.params.user_id]
     connection.query(query, data, (err, results) => {
         if (err) {
             console.log(err);
@@ -169,9 +169,24 @@ const getOrders = (req, res) => {
 }
 
 const deleteOrder = (req, res) => {
-    const query = `DELETE FROM orders WHERE order_id=?`
-    const data = [req.body.order_id]
+    const query = `DELETE FROM orders WHERE orders_id=?`
+    const data = [req.params.order_id]
     connection.query(query, data, (err, results) => {
+        if (err) {
+            console.log(err);
+        }
+        console.log(results);
+        res.json(results)
+    })
+}
+
+const ordersAndUsers = (req, res) => {
+    const query = `SELECT orders.delivary_user_id, orders.user_id, orders.orders_id,users.first_name,
+    users.last_name,orders.store_id ,orders.item_id
+    FROM orders 
+    INNER JOIN users ON orders.delivary_user_id=users.user_id;`
+    const data = [req.params.user_id]
+    connection.query(query, (err, results) => {
         if (err) {
             console.log(err);
         }
@@ -182,5 +197,5 @@ const deleteOrder = (req, res) => {
 
 module.exports = {
     addProduct, getproducts, deleteProduct, updateProduct, addStore, updateStore, getStores, deleteStore,
-    createItem, deleteItem, createOrder, getItems, getOrders, deleteOrder
+    createItem, deleteItem, createOrder, getItems, getOrders, deleteOrder, ordersAndUsers,
 }
