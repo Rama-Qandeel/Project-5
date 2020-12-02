@@ -3,7 +3,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const express = require("express");
 const app = express();
-require("dotenv").config();
 
 const register = async (req, res) => {
   const {

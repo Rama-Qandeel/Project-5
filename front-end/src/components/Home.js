@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const Home = () => {
-  let [stores, setStores] = useState([]);
+  const [stores, setStores] = useState([]);
 
   useEffect(() => {
     getAllStores();

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const InfoStore = (props) => {
-  let [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     getproducts();
