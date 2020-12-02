@@ -20,9 +20,7 @@ const register = async (req, res) => {
     role_id,
     store_id,
   } = req.body;
-  console.log("SALT", process.env.SALT);
   const hashedPassword = await bcrypt.hash(password, Number(process.env.SALT));
-  console.log(hashedPassword);
   const data = [
     first_name,
     last_name,
@@ -43,9 +41,8 @@ const register = async (req, res) => {
 
   connection.query(query, data, (err, results) => {
     if (err) {
-      console.log(err);
+      throw err;
     }
-    console.log(results);
     res.json(results);
   });
 };
@@ -57,7 +54,6 @@ const login = (req, res) => {
   const data = [email, password];
   connection.query(query, data, async (err, result) => {
     if (err) throw err;
-    console.log("result :", result[0]);
     if (result.length) {
       if (await bcrypt.compare(password, result[0].password)) {
         const {
@@ -86,7 +82,6 @@ const login = (req, res) => {
           expiresIn: process.env.TOKEN_EXPIRATION,
         };
         const token = jwt.sign(payload, process.env.SECRET, options);
-        // console.log(token);
         res.json(token);
       } else {
         res.status(422);
@@ -104,9 +99,8 @@ const getAllUsers = (req, res) => {
   const data = [0];
   connection.query(query, data, (err, results) => {
     if (err) {
-      console.log(err);
+      throw err;
     }
-    console.log(results);
     res.json(results);
   });
 };
