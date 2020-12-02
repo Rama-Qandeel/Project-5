@@ -12,13 +12,13 @@ body {
   text-align: center;
 }
 
-.navheader {
+.nav-header {
   margin-top: 10px;
   color: black !important;
   background-color: #b3beca !important;
 }
 
-.PageHeading {
+.Page-Heading {
   margin-top: 10px;
   margin-bottom: 10px;
   color: black !important;
@@ -32,4 +32,36 @@ body {
   text-decoration: none;
   list-style: none;
   margin-left: 10px;
+}
+
+.store-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.store {
+  position: relative;
+  margin: 1rem;
+  width: 50px;
+  min-width: 300px;
+}
+
+.store:hover {
+  background-color: rgb(236, 238, 241);
+  border: 5px solid, wheat;
+}
+
+.store img {
+  max-width: 100%;
+}
+
+.store-info {
+  display: flex;
+  padding: 10px;
+  align-items: center;
+}
+
+.store-category {
+  background-color: rgb(241, 213, 213);
 }

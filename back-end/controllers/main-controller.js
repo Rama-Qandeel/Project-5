@@ -91,6 +91,29 @@ const getStores = (req, res) => {
         res.json(results)
     })
 }
+
+const getAllStores = (req, res) => {
+    const query = `SELECT * from store `
+    connection.query(query, (err, results) => {
+        if (err) {
+            throw err;
+        }
+        res.json(results)
+    })
+}
+
+const specificStores = (req, res) => {
+    const query = `SELECT * from store WHERE store_category=? `
+    const{store_category}=req.body
+    const data=[store_category]
+    connection.query(query,data,(err, results) => {
+        if (err) {
+            throw err;
+        }
+        res.json(results)
+    })
+}
+
 const deleteStore = (req, res) => {
     const query = `DELETE FROM store WHERE store_id=?`
     const data = [req.body.store_id]
@@ -182,5 +205,5 @@ const deleteOrder = (req, res) => {
 
 module.exports = {
     addProduct, getproducts, deleteProduct, updateProduct, addStore, updateStore, getStores, deleteStore,
-    createItem, deleteItem, createOrder, getItems, getOrders, deleteOrder
+    createItem, deleteItem, createOrder, getItems, getOrders, deleteOrder,getAllStores,specificStores
 }

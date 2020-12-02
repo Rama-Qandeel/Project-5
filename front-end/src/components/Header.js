@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 const Header = () => {
   return (
     <div className="container">
-      <nav className=" navheader">
+      <nav className=" nav-header">
         <div className="">
           <ul className="navbar-nav ">
             <li className="nav-item">

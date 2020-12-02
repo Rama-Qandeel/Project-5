@@ -14,6 +14,8 @@ const {
   createOrder,
   getItems,
   getOrders,
+  getAllStores,
+  specificStores
 } = require("../controllers/main-controller");
 const {
   register,
@@ -22,12 +24,14 @@ const {
 } = require("../controllers/users_controller");
 
 mainRouter.post("/product", addProduct);
-mainRouter.get("/product", getproducts);
+mainRouter.post('/getproduct', getproducts);
 mainRouter.delete("/product", deleteProduct);
 mainRouter.put("/product", updateProduct);
 mainRouter.post("/store", addStore);
 mainRouter.put("/store", updateStore);
 mainRouter.get("/store", getStores);
+mainRouter.get('/allstore', getAllStores);
+mainRouter.post('/specificstore', specificStores);
 mainRouter.delete("/store", deleteStore);
 mainRouter.post("/order", createOrder);
 mainRouter.get("/order", getOrders);
