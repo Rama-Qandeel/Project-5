@@ -19,13 +19,9 @@ const CSTprofile = (props) => {
     const [userPic, setUserPic] = useState("")
     const [PhoneNumber, setPhoneNumber] = useState("")
     const [Info, setInfo] = useState()
-    const [DelevaryName, setDelevaryName] = useState("DelevaryName")
-    const [DeleveryUserId, setDeleveryUserId] = useState("Delevaryid")
     const [orders, setOrders] = useState([])
     const [stores, setStores] = useState([])
-    const [users, setUsers] = useState([])
     const getUser = async (infoArgumnt) => {
-        console.log(infoArgumnt)
         axios
             .get(`http://localhost:5000/users/${infoArgumnt}`)
             .then(async (response) => {
@@ -42,7 +38,7 @@ const CSTprofile = (props) => {
                 setPhoneNumber(response.data[0].phone_number)
             })
             .catch((err) => {
-                console.log('RESULT: ', err);
+                throw err
             });
     };
 
@@ -53,8 +49,10 @@ const CSTprofile = (props) => {
                 setOrders(response.data)
             })
             .catch((err) => {
+                throw err
             });
     };
+
     const getStores = async (infoArgumnt) => {
         axios
             .get(`http://localhost:5000/store/${infoArgumnt}`)
@@ -62,43 +60,31 @@ const CSTprofile = (props) => {
                 if (response.data.length === 0) {
                     alert("wrong user id")
                 }
-                console.log(response.data);
                 setStores(response.data)
             })
             .catch((err) => {
-                console.log('RESULT: ', err);
+                throw err
             });
     };
-    const getDelevaryUser = async (infoArgumnt) => {
-        console.log(infoArgumnt)
-        axios
-            .get(`http://localhost:5000/users/${infoArgumnt}`)
-            .then(async (response) => {
-                console.log("response", response)
-                if (response.data.length === 0) {
-                    alert("wrong user id")
-                }
-                setDelevaryName(response.data[0].first_name)
-            })
-            .catch((err) => {
-                console.log('RESULT: ', err);
-            });
-    };
+
     const userOrders = orders.map((e, index) =>
-        <li num={index + 1} key={index}>
+        <li className="list-group-item list-group-item-action" num={index + 1} key={index}>
             <div>
-                <div>orders_id :{e.orders_id} </div>
-                <div>delivary name: {e.first_name} {e.last_name}</div>
-                <div>item_id:{e.item_id} </div>
+                <div className="bg-info" >orders_id   :  {e.orders_id} </div>
+                <div>delivary name  : {e.first_name} {e.last_name}</div>
+                <div>product name  :  {e.product_name} </div>
+                <div>store name  :  {e.store_name} </div>
+                <div>item id  :  {e.item_id} </div>
             </div>
         </li>
     )
+
     const userStores = stores.map((e, index) =>
-        <li num={index + 1} key={index}>
+        <li className="list-group-item list-group-item-action" num={index + 1} key={index}>
             <div>
-                <div>store_id :{e.store_id} </div>
-                <div>store_name:{e.store_name} </div>
-                <div>store_category:{e.store_category} </div>
+                <div className="bg-info" >store id :   {e.store_id} </div>
+                <div>store name :   {e.store_name} </div>
+                <div>store category :   {e.store_category} </div>
                 <div><img src={e.store_pic} alt="store pic" className="pPic"></img> </div>
             </div>
         </li>
@@ -106,34 +92,35 @@ const CSTprofile = (props) => {
 
     return (
         <Router>
-            <div className="app">
-                <h1>{Farstname} profile</h1>
-
-                <button onClick={() => { getOrdersInfo(userId); getUser(userId); getStores(userId) }} > get user </button>
+            <div className="container">
+                <h1 className="navbar navbar-dark bg-primary">{Farstname} profile</h1>
+                <button className="btn btn-primary" onClick={() => { getOrdersInfo(userId); getUser(userId); getStores(userId) }} > get user </button>
                 <input onChange={(e) => { setUserId(e.target.value) }} placeholder="user id" />
-                <div>
-                    <img src={userPic} alt="profile pic" className="pPic"></img>
-                    <p>Address    :   {Address}</p>
-                    <p>First name :{   Farstname}</p> 
-                    <p>Last name:{Lastname}</p> 
-                    <p>birthday   :   {doB}</p>
-                    <p>email   :  {email}</p>
-                    <p> Phone Number  :  {PhoneNumber}</p>
-                </div>
-                <div>
-                    <ul>
-                        {userOrders}
-                    </ul>
-                </div>
-                <div>
-                    <ul>
-                        {userStores}
-                    </ul>
+                <div className="row">
+                    <div className="col list-group">
+                        <img src={userPic} alt="profile pic" className="pPic row rounded mx-auto d-block"></img>
+                        <p className="list-group-item list-group-item-action">Address    :   {Address}</p>
+                        <p className="list-group-item list-group-item-action">First name : {Farstname}</p>
+                        <p className="list-group-item list-group-item-action">Last name:{Lastname}</p>
+                        <p className="list-group-item list-group-item-action">birthday   :   {doB}</p>
+                        <p className="list-group-item list-group-item-action">email   :  {email}</p>
+                        <p className="list-group-item list-group-item-action"> Phone Number  :  {PhoneNumber}</p>
+                    </div>
+                    <div className="col list-group">
+                        <ul>
+                            <p class="thead-dark display-3">{Farstname} orders</p>
+                            {userOrders}
+                        </ul>
+                    </div>
+                    <div className="col list-group">
+                        <ul>
+                            <p className="thead-dark display-3">{Farstname} stores</p>
+                            {userStores}
+                        </ul>
+                    </div>
                 </div>
             </div>
         </Router>
     )
 }
-
-
 export default CSTprofile

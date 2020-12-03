@@ -189,14 +189,15 @@ const deleteOrder = (req, res) => {
         res.json(results)
     })
 }
-// orders.delivary_user_id, orders.user_id, orders.orders_id,users.first_name,
-    // users.last_name,orders.store_id ,orders.item_id //    INNER JOIN store ON orders.store_id=store.store_id 
+ //    INNER JOIN store ON orders.store_id=store.store_id 
 
 const ordersAndUsers = (req, res) => {
     const query =
-        `SELECT * FROM orders 
+        `SELECT products.product_name,orders.delivary_user_id, orders.user_id, orders.orders_id,users.first_name,
+        users.last_name,orders.store_id ,orders.item_id,store.store_name   FROM orders 
     INNER JOIN users ON orders.delivary_user_id=users.user_id 
-    INNER JOIN items ON orders.item_id=items.item_id 
+    INNER JOIN items ON orders.item_id=items.item_id
+    INNER JOIN store ON orders.store_id=store.store_id  
     INNER JOIN products ON items.item_id=products.item_id 
     
     WHERE orders.user_id =?`
