@@ -12,7 +12,7 @@ const Home = () => {
 
   const getAllStores = () => {
     axios
-      .get("http://localhost:5000/allstore")
+      .get("http://localhost:5000/stores")
       .then((response) => {
         setStores(response.data);
       })

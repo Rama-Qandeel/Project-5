@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
 import Product from "./components/Product";
-import { Link } from "react-router-dom";
 import axios from "axios";
 
 const InfoStore = (props) => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    getproducts();
+    getProducts();
   }, []);
 
-  const getproducts = () => {
-    let data = { store_id: props.location.state.store_id };
+  const getProducts = () => {
     axios
-      .post("http://localhost:5000/getproduct", data)
+      .get(`http://localhost:5000/getproduct/${props.location.state.store_id}`)
       .then((response) => {
         setProducts(response.data);
       })
@@ -22,7 +20,8 @@ const InfoStore = (props) => {
       });
   };
 
-  const renderProducts = products.map((product) => <Product data={product} />);
+  const renderProducts = products.map((product) =>
+   <Product data={product} />);
 
   return (
     <div>

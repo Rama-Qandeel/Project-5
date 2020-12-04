@@ -2,7 +2,7 @@ const express = require("express");
 const mainRouter = express.Router();
 const {
   addProduct,
-  getproducts,
+  getProducts,
   deleteProduct,
   updateProduct,
   addStore,
@@ -24,17 +24,17 @@ const {
 } = require("../controllers/users_controller");
 
 mainRouter.post("/product", addProduct);
-mainRouter.post('/getproduct', getproducts);
+mainRouter.get('/getproduct/:store_id', getProducts);
 mainRouter.delete("/product", deleteProduct);
 mainRouter.put("/product", updateProduct);
 mainRouter.post("/store", addStore);
-mainRouter.put("/store", updateStore);
+mainRouter.put("/store/:store_id", updateStore);
 mainRouter.get("/store", getStores);
-mainRouter.get('/allstore', getAllStores);
+mainRouter.get('/stores', getAllStores);
 mainRouter.post('/specificstore', specificStores);
 mainRouter.delete("/store", deleteStore);
 mainRouter.post("/order", createOrder);
-mainRouter.get("/order", getOrders);
+mainRouter.get("/orders", getOrders);
 mainRouter.delete("/order", deleteStore);
 mainRouter.post("/item", createItem);
 mainRouter.get("/item", getItems);
