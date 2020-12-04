@@ -1,5 +1,10 @@
 import React, { Component, useState, useEffect } from 'react';
-import axios from 'axios';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import "./App.css";
+import Register from "./components/Register";
+import Login from "./components/Login";
+import Home from "./components/Home";
+import Header from "./components/Header";
 import CSTprofile from './CSTprofile';
 import "./App.css"
 import StoreProfile from './StoreProfile';
@@ -31,8 +36,7 @@ const App = (props) => {
         />
       </div>
     </Router>
-  )
-}
+  );
+};
 
-
-export default App
+export default App;

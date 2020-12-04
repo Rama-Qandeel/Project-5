@@ -5,6 +5,7 @@ const addProduct = (req, res) => {
     const data = [store_id, item_id, product_name, product_descripition, quantity_per_unit, unit_price, available_product, picture]
     const query = `INSERT INTO products (store_id,item_id,product_name,product_descripition,quantity_per_unit,unit_price,available_product,picture)
 VALUES (?,?,?,?,?,?,?,?) `
+    
     connection.query(query, data, (err, results) => {
         if (err) {
             throw err;
@@ -36,6 +37,7 @@ const getproducts = (req, res) => {
         res.json(results)
     })
 }
+
 const getproductsByItem = (req, res) => {
     const query = `SELECT * from products WHERE item_id=?`
     const data = [req.body.item_id]
@@ -46,6 +48,7 @@ const getproductsByItem = (req, res) => {
         res.json(results)
     })
 }
+
 const deleteProduct = (req, res) => {
     const query = `DELETE FROM products WHERE product_id=?`
     const data = [req.body.product_id]
@@ -83,7 +86,7 @@ const updateStore = (req, res) => {
     })
 }
 
-const getStores = (req, res) => {
+const getStores = (req, res) => {  
     const query = `SELECT * from store WHERE user_id=?`
     const data = [req.params.user_id]
     connection.query(query, data, (err, results) => {
@@ -103,6 +106,7 @@ const getStoresbyStoreId = (req, res) => {
         res.json(results)
     })
 }
+
 const deleteStore = (req, res) => {
     const query = `DELETE FROM store WHERE store_id=?`
     const data = [req.body.store_id]
@@ -113,8 +117,8 @@ const deleteStore = (req, res) => {
         res.json(results)
     })
 }
-//********************orders */
 
+//********************orders */
 const createItem = (req, res) => {
     const { orders_id, product_id, total_price } = req.body
     const data = [orders_id, product_id, total_price]
@@ -146,7 +150,6 @@ const deleteItem = (req, res) => {
         if (err) {
             throw err;
         }
-
         res.json(results)
     })
 }
@@ -185,7 +188,6 @@ const deleteOrder = (req, res) => {
         res.json(results)
     })
 }
-//    INNER JOIN store ON orders.store_id=store.store_id 
 
 const ordersAndUsers = (req, res) => {
     const query =
