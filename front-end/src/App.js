@@ -1,29 +1,27 @@
 import React, { Component, useState, useEffect } from 'react';
-import axios from 'axios';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import "./App.css";
+import Register from "./components/Register";
+import Login from "./components/Login";
+import Home from "./components/Home";
+import Header from "./components/Header";
 import CSTprofile from './CSTprofile';
-import  "./App.css"
-// import  'bootstrap';
 
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect,
-} from 'react-router-dom';
 
-const App = (props) => {
-
+const App = () => {
   return (
     <Router>
-      <div className="app">
-        <p>APP</p>
-        <Route exact path="/profile">
-        <CSTprofile/>
-      </Route>
-      </div>
+      <Header />
+      <Route exact path="/login" render={(props) => <Login {...props} />} />
+      <Route
+        exact
+        path="/register"
+        render={(props) => <Register {...props} />}
+      />
+      <Route exact path="/home" render={(props) => <Home {...props} />} />
+      <Route exact path="/profile" render={(props) => <CSTprofile {...props} />} /> 
     </Router>
-  )
-}
+  );
+};
 
-
-export default App
+export default App;

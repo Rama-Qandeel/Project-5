@@ -1,15 +1,16 @@
 const connection = require("../db")
 
 const addProduct = (req, res) => {
+
     const { store_id,item_id, product_name, product_descripition, quantity_per_unit, unit_price, available_product, picture } = req.body
     const data = [store_id, item_id,product_name, product_descripition, quantity_per_unit, unit_price, available_product, picture]
     const query = `INSERT INTO products (store_id,item_id,product_name,product_descripition,quantity_per_unit,unit_price,available_product,picture)
 VALUES (?,?,?,?,?,?,?,?) `
+    
     connection.query(query, data, (err, results) => {
         if (err) {
             console.log(err);
         }
-        console.log(results);
         res.json(results)
     })
 }
@@ -23,7 +24,6 @@ const updateProduct = (req, res) => {
         if (err) {
             console.log(err);
         }
-        console.log(results);
         res.json(results)
     })
 }
@@ -35,10 +35,10 @@ const getproducts = (req, res) => {
         if (err) {
             console.log(err);
         }
-        console.log(results);
         res.json(results)
     })
 }
+
 const getproductsByItem = (req, res) => {
     const query = `SELECT * from products WHERE item_id=?`
     const data = [req.body.item_id]
@@ -46,10 +46,10 @@ const getproductsByItem = (req, res) => {
         if (err) {
             console.log(err);
         }
-        console.log(results);
         res.json(results)
     })
 }
+
 const deleteProduct = (req, res) => {
     const query = `DELETE FROM products WHERE product_id=?`
     const data = [req.body.product_id]
@@ -57,7 +57,6 @@ const deleteProduct = (req, res) => {
         if (err) {
             console.log(err);
         }
-        console.log(results);
         res.json(results)
     })
 }
@@ -72,7 +71,6 @@ const addStore = (req, res) => {
         if (err) {
             console.log(err);
         }
-        console.log(results);
         res.json(results)
     })
 }
@@ -85,22 +83,21 @@ const updateStore = (req, res) => {
         if (err) {
             console.log(err);
         }
-        console.log(results);
         res.json(results)
     })
 }
 
-const getStores = (req, res) => {
+const getStores = (req, res) => {  
     const query = `SELECT * from store WHERE user_id=?`
     const data = [req.params.user_id]
     connection.query(query, data, (err, results) => {
         if (err) {
             console.log(err);
         }
-        console.log(results);
         res.json(results)
     })
 }
+
 const deleteStore = (req, res) => {
     const query = `DELETE FROM store WHERE store_id=?`
     const data = [req.body.store_id]
@@ -108,12 +105,11 @@ const deleteStore = (req, res) => {
         if (err) {
             console.log(err);
         }
-        console.log(results);
         res.json(results)
     })
 }
-//********************orders */
 
+//********************orders */
 const createItem = (req, res) => {
     const { orders_id, product_id, total_price } = req.body
     const data = [orders_id, product_id, total_price]
@@ -123,7 +119,6 @@ const createItem = (req, res) => {
         if (err) {
             console.log(err);
         }
-        console.log(results);
         res.json(results)
     })
 }
@@ -135,7 +130,6 @@ const getItems = (req, res) => {
         if (err) {
             console.log(err);
         }
-        console.log(results);
         res.json(results)
     })
 }
@@ -147,7 +141,6 @@ const deleteItem = (req, res) => {
         if (err) {
             console.log(err);
         }
-        console.log(results);
         res.json(results)
     })
 }
@@ -161,7 +154,6 @@ const createOrder = (req, res) => {
         if (err) {
             console.log(err);
         }
-        console.log(results);
         res.json(results)
     })
 }
@@ -173,7 +165,6 @@ const getOrders = (req, res) => {
         if (err) {
             console.log(err);
         }
-        console.log(results);
         res.json(results)
     })
 }
@@ -185,12 +176,11 @@ const deleteOrder = (req, res) => {
         if (err) {
             console.log(err);
         }
-        console.log(results);
         res.json(results)
     })
 }
- //    INNER JOIN store ON orders.store_id=store.store_id 
 
+ // INNER JOIN store ON orders.store_id=store.store_id 
 const ordersAndUsers = (req, res) => {
     const query =
         `SELECT products.product_name,orders.delivary_user_id, orders.user_id, orders.orders_id,users.first_name,
@@ -206,7 +196,6 @@ const ordersAndUsers = (req, res) => {
         if (err) {
             console.log(err);
         }
-        console.log(results);
         res.json(results)
     })
 }
