@@ -1,6 +1,6 @@
 const express = require('express');
 const mainRouter = express.Router();
-const { addProduct, getproducts, deleteProduct, updateProduct, addStore, updateStore, getStores, deleteStore,
+const { addProduct, getproducts, deleteProduct, updateProduct, addStore, updateStore,getStoresbyStoreId, getStores, deleteStore,
   createItem, deleteItem, createOrder, getItems, getOrders ,deleteOrder,ordersAndUsers,getproductsByItem} = require("../controllers/main-controller")
 const { register, getAllUsers, login ,getUserById,} = require("../controllers/users_controller")
 
@@ -13,6 +13,7 @@ mainRouter.get('/product/:item_id', getproductsByItem);
 mainRouter.post('/store', addStore);
 mainRouter.put('/store', updateStore);
 mainRouter.get('/store/:user_id', getStores);
+mainRouter.get('/mystore/:store_id', getStoresbyStoreId);
 mainRouter.delete('/store', deleteStore);
 
 mainRouter.post('/order', createOrder);

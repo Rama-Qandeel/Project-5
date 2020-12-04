@@ -19,9 +19,8 @@ const register = async (req, res) => {
     VALUES (?,?,?,?,?,?,?,?,?,?,?,?) `
     connection.query(query, data, (err, results) => {
         if (err) {
-            console.log(err);
+            throw err;
         }
-        console.log(results);
         res.json(results)
     })
 }
@@ -80,9 +79,8 @@ const getAllUsers = (req, res) => {
     const data = [0]
     connection.query(query, data, (err, results) => {
         if (err) {
-            console.log(err);
+            throw err;
         }
-        console.log(results);
         res.json(results)
     })
 }
@@ -90,10 +88,10 @@ const getUserById = (req, res) => {
     const query = `SELECT * FROM users WHERE user_id=${req.params.user_id}`
     connection.query(query,  (err, results) => {
         if (err) {
-            console.log(err);
+            throw err;
         }
-        console.log(results);
         res.json(results)
     })
 }
+
 module.exports = { register, getAllUsers, login ,getUserById}

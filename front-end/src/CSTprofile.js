@@ -1,6 +1,6 @@
 import React, { Component, useState, useEffect } from 'react';
 import axios from 'axios';
-
+import StoreProfile from './StoreProfile';
 import {
     BrowserRouter as Router,
     Route,
@@ -9,8 +9,8 @@ import {
 } from 'react-router-dom';
 
 const CSTprofile = (props) => {
-
-    const [userId, setUserId] = useState("")
+    const { id } = props.match.params
+    const [userId, setUserId] = useState(id)
     const [Address, setAddress] = useState("")
     const [Farstname, setFarstname] = useState("")
     const [Lastname, setLastname] = useState("")
@@ -21,6 +21,8 @@ const CSTprofile = (props) => {
     const [Info, setInfo] = useState()
     const [orders, setOrders] = useState([])
     const [stores, setStores] = useState([])
+    const [storeId, setStoreId] = useState("storeid")
+    const [userStore, setStore] = useState(["store"])
     const getUser = async (infoArgumnt) => {
         axios
             .get(`http://localhost:5000/users/${infoArgumnt}`)
@@ -57,9 +59,6 @@ const CSTprofile = (props) => {
         axios
             .get(`http://localhost:5000/store/${infoArgumnt}`)
             .then(async (response) => {
-                if (response.data.length === 0) {
-                    alert("wrong user id")
-                }
                 setStores(response.data)
             })
             .catch((err) => {
@@ -78,18 +77,20 @@ const CSTprofile = (props) => {
             </div>
         </li>
     )
-
     const userStores = stores.map((e, index) =>
         <li className="list-group-item list-group-item-action" num={index + 1} key={index}>
-            <div>
-                <div className="bg-info" >store id :   {e.store_id} </div>
+            <div onClick={() => setStoreId(e.store_id)}  >
+                <div className="bg-info" >store id :   {e.store_id}
+                </div>
                 <div>store name :   {e.store_name} </div>
                 <div>store category :   {e.store_category} </div>
                 <div><img src={e.store_pic} alt="store pic" className="pPic"></img> </div>
             </div>
         </li>
     )
-
+    useEffect(()=>{
+    getOrdersInfo(userId); getUser(userId); getStores(userId) 
+    },[])
     return (
         <Router>
             <div className="container">
