@@ -102,4 +102,14 @@ const getAllUsers = (req, res) => {
   });
 };
 
-module.exports = { register, getAllUsers, login };
+const getUserById = (req, res) => {
+    const query = `SELECT * FROM users WHERE user_id=${req.params.user_id}`
+    connection.query(query,  (err, results) => {
+        if (err) {
+            throw err;
+        }
+        res.json(results)
+    })
+}
+
+module.exports = { register, getAllUsers, login ,getUserById}

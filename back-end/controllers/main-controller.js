@@ -1,15 +1,15 @@
 const connection = require("../db")
 
 const addProduct = (req, res) => {
-    const { store_id, product_name, product_descripition, quantity_per_unit, unit_price, available_product, picture } = req.body
-    const data = [store_id, product_name, product_descripition, quantity_per_unit, unit_price, available_product, picture]
-    const query = `INSERT INTO products (store_id,product_name,product_descripition,quantity_per_unit,unit_price,available_product,picture)
-VALUES (?,?,?,?,?,?,?) `
+    const { store_id, item_id, product_name, product_descripition, quantity_per_unit, unit_price, available_product, picture } = req.body
+    const data = [store_id, item_id, product_name, product_descripition, quantity_per_unit, unit_price, available_product, picture]
+    const query = `INSERT INTO products (store_id,item_id,product_name,product_descripition,quantity_per_unit,unit_price,available_product,picture)
+VALUES (?,?,?,?,?,?,?,?) `
+    
     connection.query(query, data, (err, results) => {
         if (err) {
-            console.log(err);
+            throw err;
         }
-        console.log(results);
         res.json(results)
     })
 }
@@ -21,9 +21,8 @@ const updateProduct = (req, res) => {
         unit_price=?,available_product=?,picture=? WHERE product_id=${product_id} `
     connection.query(query, data, (err, results) => {
         if (err) {
-            console.log(err);
+            throw err;
         }
-        console.log(results);
         res.json(results)
     })
 }
@@ -33,9 +32,19 @@ const getProducts = (req, res) => {
     const data = [req.params.store_id]
     connection.query(query, data, (err, results) => {
         if (err) {
-            console.log(err);
+            throw err;
         }
-        console.log(results);
+        res.json(results)
+    })
+}
+
+const getproductsByItem = (req, res) => {
+    const query = `SELECT * from products WHERE item_id=?`
+    const data = [req.body.item_id]
+    connection.query(query, data, (err, results) => {
+        if (err) {
+            throw err;
+        }
         res.json(results)
     })
 }
@@ -45,9 +54,8 @@ const deleteProduct = (req, res) => {
     const data = [req.body.product_id]
     connection.query(query, data, (err, results) => {
         if (err) {
-            console.log(err);
+            throw err;
         }
-        console.log(results);
         res.json(results)
     })
 }
@@ -60,9 +68,8 @@ const addStore = (req, res) => {
     VALUES (?,?,?,?) `
     connection.query(query, data, (err, results) => {
         if (err) {
-            console.log(err);
+            throw err;
         }
-        console.log(results);
         res.json(results)
     })
 }
@@ -74,21 +81,29 @@ const updateStore = (req, res) => {
     const query = `UPDATE store SET store_name=?,store_category=?,store_pic=? WHERE store_id=${req.params.store_id} `
     connection.query(query, data, (err, results) => {
         if (err) {
-            console.log(err);
+            throw err;
         }
-        console.log(results);
         res.json(results)
     })
 }
 
-const getStores = (req, res) => {
+const getStores = (req, res) => {  
     const query = `SELECT * from store WHERE user_id=?`
-    const data = [req.body.user_id]
+    const data = [req.params.user_id]
     connection.query(query, data, (err, results) => {
         if (err) {
-            console.log(err);
+            throw err;
         }
-        console.log(results);
+        res.json(results)
+    })
+}
+const getStoresbyStoreId = (req, res) => {
+    const query = `SELECT * from store WHERE store_id=?`
+    const data = [req.params.store_id]
+    connection.query(query, data, (err, results) => {
+        if (err) {
+            throw err;
+        }
         res.json(results)
     })
 }
@@ -120,14 +135,13 @@ const deleteStore = (req, res) => {
     const data = [req.body.store_id]
     connection.query(query, data, (err, results) => {
         if (err) {
-            console.log(err);
+            throw err;
         }
-        console.log(results);
         res.json(results)
     })
 }
-//********************orders */
 
+//********************orders */
 const createItem = (req, res) => {
     const { orders_id, product_id, total_price } = req.body
     const data = [orders_id, product_id, total_price]
@@ -135,9 +149,8 @@ const createItem = (req, res) => {
     VALUES (?,?,?) `
     connection.query(query, data, (err, results) => {
         if (err) {
-            console.log(err);
+            throw err;
         }
-        console.log(results);
         res.json(results)
     })
 }
@@ -147,9 +160,8 @@ const getItems = (req, res) => {
     const data = [req.body.orders_id]
     connection.query(query, data, (err, results) => {
         if (err) {
-            console.log(err);
+            throw err;
         }
-        console.log(results);
         res.json(results)
     })
 }
@@ -159,9 +171,8 @@ const deleteItem = (req, res) => {
     const data = [req.body.item_id]
     connection.query(query, data, (err, results) => {
         if (err) {
-            console.log(err);
+            throw err;
         }
-        console.log(results);
         res.json(results)
     })
 }
@@ -173,38 +184,54 @@ const createOrder = (req, res) => {
     VALUES (?,?,?,?) `
     connection.query(query, data, (err, results) => {
         if (err) {
-            console.log(err);
+            throw err;
         }
-        console.log(results);
         res.json(results)
     })
 }
 
 const getOrders = (req, res) => {
     const query = `SELECT * from orders WHERE user_id=?`
-    const data = [req.body.user_id]
+    const data = [req.params.user_id]
     connection.query(query, data, (err, results) => {
         if (err) {
-            console.log(err);
+            throw err;
         }
-        console.log(results);
         res.json(results)
     })
 }
 
 const deleteOrder = (req, res) => {
-    const query = `DELETE FROM orders WHERE order_id=?`
-    const data = [req.body.order_id]
+    const query = `DELETE FROM orders WHERE orders_id=?`
+    const data = [req.params.order_id]
     connection.query(query, data, (err, results) => {
         if (err) {
-            console.log(err);
+            throw err;
         }
-        console.log(results);
+        res.json(results)
+    })
+}
+
+const ordersAndUsers = (req, res) => {
+    const query =
+        `SELECT products.product_name,orders.delivary_user_id, orders.user_id, orders.orders_id,users.first_name,
+        users.last_name,orders.store_id ,orders.item_id,store.store_name   FROM orders 
+    INNER JOIN users ON orders.delivary_user_id=users.user_id 
+    INNER JOIN items ON orders.item_id=items.item_id
+    INNER JOIN store ON orders.store_id=store.store_id  
+    INNER JOIN products ON items.item_id=products.item_id 
+    WHERE orders.user_id =?`
+    const data = [req.params.user_id]
+    connection.query(query, data, (err, results) => {
+        if (err) {
+            throw err;
+        }
         res.json(results)
     })
 }
 
 module.exports = {
-    addProduct, getProducts, deleteProduct, updateProduct, addStore, updateStore, getStores, deleteStore,
-    createItem, deleteItem, createOrder, getItems, getOrders, deleteOrder,getAllStores,specificStores
+    addProduct, getproducts, deleteProduct, updateProduct, addStore, updateStore, getStores, deleteStore,
+    createItem, deleteItem, createOrder, getItems, getOrders, deleteOrder, ordersAndUsers, getproductsByItem
+    , getStoresbyStoreId, getAllStores,specificStores
 }

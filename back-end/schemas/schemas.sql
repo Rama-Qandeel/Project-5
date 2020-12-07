@@ -20,11 +20,20 @@ is_deleted BIT NOT NULL DEFAULT 0,
 PRIMARY KEY (store_id)
 );
 
+--product 
+CREATE table productCategory(
+category_id int  NOT NULL ,
+category_name varchar(55),
+picture varchar(255) ,
+PRIMARY key (category_id)
+);
 
 CREATE table products(
 product_id int AUTO_INCREMENT NOT NULL ,
 product_category_id int ,
 store_id int ,
+item_id int ,
+
 product_name varchar(255),
 product_descripition varchar(255),
 quantity_per_unit varchar(100),

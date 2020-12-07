@@ -122,7 +122,6 @@ const Register = (props) => {
           required
         />
       </div>
-
       <div>
         {" "}
         <label htmlFor="address"> Select a country</label>
